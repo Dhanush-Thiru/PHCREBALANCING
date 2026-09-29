@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "SAP CAP application for pre-emptive PHC medicine rebalancing",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
     "@cap-js/hana": "^2.2.0",
     "@cap-js/sqlite": "^2.0.0",
@@ -12,13 +14,49 @@
     "@sap/xssec": "^4.0.0",
     "express": "^4.21.0"
   },
-  "devDependencies": { "@sap/cds-dk": "^9.0.0", "mbt": "^1.2.0" },
-  "scripts": { "start": "cds-serve", "watch": "cds watch --profile development", "build": "cds build --production" },
+  "devDependencies": {
+    "@sap/cds-dk": "^9.0.0",
+    "mbt": "^1.2.0"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch --profile development",
+    "build": "cds build --production"
+  },
   "cds": {
     "requires": {
-      "db": { "kind": "hana" },
-      "auth": { "kind": "xsuaa" }
+      "db": {
+        "kind": "hana"
+      },
+      "auth": {
+        "kind": "mocked"
+      }
     },
-    "build": { "target": "gen", "tasks": [{ "for": "hana", "src": "db" }, { "for": "nodejs", "src": "srv" }] }
+    "[development]": {
+      "requires": {
+        "db": {
+          "kind": "sqlite",
+          "credentials": {
+            "database": ":memory:"
+          }
+        },
+        "auth": {
+          "kind": "mocked"
+        }
+      }
+    },
+    "build": {
+      "target": "gen",
+      "tasks": [
+        {
+          "for": "hana",
+          "src": "db"
+        },
+        {
+          "for": "nodejs",
+          "src": "srv"
+        }
+      ]
+    }
   }
 }

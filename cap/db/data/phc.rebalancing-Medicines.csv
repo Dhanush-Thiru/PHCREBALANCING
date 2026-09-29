@@ -5,3 +5,5 @@ MED-003;Amoxicillin 500 mg;capsules;Antibiotic;false
 MED-004;Insulin 40 IU;vials;Cold chain;true
 MED-005;Oxytocin 10 IU;ampoules;Maternal health;true
 MED-006;Zinc 20 mg;tablets;Essential;false
+MED-007;Azithromycin 500 mg;tablets;Antibiotic;false
+MED-008;Ringer's Lactate;bags;Emergency fluid;false

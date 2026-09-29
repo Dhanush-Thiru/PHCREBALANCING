@@ -1,2 +1,4 @@
 ID;district;targetFacility_ID;active;isolationHours
 KENDRAPARA-DEMO;Kendrapara;PHC-04;false;58
+KENDRAPARA-COASTAL-02;Kendrapara;PHC-11;false;62
+KENDRAPARA-EAST-03;Kendrapara;PHC-15;false;56
