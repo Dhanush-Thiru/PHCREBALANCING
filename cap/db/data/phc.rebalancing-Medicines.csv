@@ -1,0 +1,7 @@
+ID;name;unit;category;controlled
+MED-001;ORS sachets;sachets;Essential;false
+MED-002;Paracetamol 500 mg;tablets;Essential;false
+MED-003;Amoxicillin 500 mg;capsules;Antibiotic;false
+MED-004;Insulin 40 IU;vials;Cold chain;true
+MED-005;Oxytocin 10 IU;ampoules;Maternal health;true
+MED-006;Zinc 20 mg;tablets;Essential;false

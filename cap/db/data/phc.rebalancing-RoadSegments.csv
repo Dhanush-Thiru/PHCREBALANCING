@@ -1,0 +1,10 @@
+ID;fromFacility_ID;toFacility_ID;hours;isOpen;floodZone
+R-01;PHC-01;PHC-04;2;true;Rajnagar
+R-02;PHC-02;PHC-04;1;true;Rajnagar
+R-03;PHC-03;PHC-04;2;true;Rajnagar
+R-04;PHC-05;PHC-04;2;true;Rajnagar
+R-05;PHC-06;PHC-04;4;true;Rajnagar
+R-06;PHC-07;PHC-04;3;true;Rajnagar
+R-07;PHC-08;PHC-04;3;true;Rajnagar
+R-08;PHC-09;PHC-04;2;true;Rajnagar
+R-09;PHC-10;PHC-04;2;true;Rajnagar

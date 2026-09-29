@@ -1,0 +1,11 @@
+ID;name;district;area;latitude;longitude;vulnerable;isolationHours
+PHC-01;Kendrapara Central;Kendrapara;Kendrapara;20.500000;86.420000;false;120
+PHC-02;Pattamundai;Kendrapara;Pattamundai;20.580000;86.560000;false;96
+PHC-03;Aul;Kendrapara;Aul;20.670000;86.650000;false;72
+PHC-04;Rajnagar;Kendrapara;Rajnagar;20.480000;86.730000;true;58
+PHC-05;Mahakalpara;Kendrapara;Mahakalpara;20.430000;86.570000;false;88
+PHC-06;Derabish;Kendrapara;Derabish;20.480000;86.350000;false;110
+PHC-07;Marshaghai;Kendrapara;Marshaghai;20.330000;86.440000;false;82
+PHC-08;Garadpur;Kendrapara;Garadpur;20.570000;86.460000;false;104
+PHC-09;Gopalpur;Kendrapara;Gopalpur;20.620000;86.780000;false;70
+PHC-10;Jamboo;Kendrapara;Jamboo;20.350000;86.690000;false;64

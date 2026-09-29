@@ -1,0 +1,104 @@
+_schema-version: 3.3.0
+ID: phcpreemptiverebalancing
+version: 1.0.0
+description: PHC Pre-emptive Medicine Rebalancing Agent
+parameters:
+  enable-parallel-deployments: true
+modules:
+  - name: phc-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      instances: 1
+      memory: 768M
+      disk-quota: 1G
+    provides:
+      - name: srv-api
+        properties:
+          url: ${default-url}
+    requires:
+      - name: phc-db
+      - name: phc-uaa
+
+  - name: phc-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+      no-route: true
+      no-start: true
+    requires:
+      - name: phc-db
+
+  - name: phc-ui
+    type: html5
+    path: app/phc
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      build-result: dist
+
+  - name: phc-app-content
+    type: com.sap.application
+    path: .
+    requires:
+      - name: phc-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - name: phc-ui
+          artifacts:
+            - phc-ui.zip
+          target-path: resources/
+
+resources:
+  - name: phc-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+
+  - name: phc-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+
+  - name: phc-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+
+  - name: phc-html5-repo-runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime
+
+  - name: phc-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            existing_destinations_policy: update
+            destinations:
+              - Name: phc-backend
+                Type: HTTP
+                ProxyType: Internet
+                URL: ~{srv-api/url}
+                Authentication: NoAuthentication
+                HTML5.DynamicDestination: true
+                HTML5.ForwardAuthToken: true
+    requires:
+      - name: srv-api
+      - name: phc-uaa

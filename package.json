@@ -1,0 +1,7 @@
+{
+  "name": "phc-preemptive-rebalancing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SAP-oriented PHC medicine rebalancing demo",
+  "scripts": { "start": "node server.js" }
+}

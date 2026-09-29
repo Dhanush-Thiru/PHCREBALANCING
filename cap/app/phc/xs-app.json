@@ -1,0 +1,18 @@
+{
+  "welcomeFile": "index.html",
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "source": "^/odata/v4/rebalancing/(.*)$",
+      "target": "/odata/v4/rebalancing/$1",
+      "destination": "phc-backend",
+      "authenticationType": "xsuaa",
+      "csrfProtection": true
+    },
+    {
+      "source": "^(.*)$",
+      "localDir": ".",
+      "authenticationType": "xsuaa"
+    }
+  ]
+}

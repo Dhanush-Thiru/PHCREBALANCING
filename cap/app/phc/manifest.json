@@ -1,0 +1,27 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "phc.rebalancing",
+    "type": "application",
+    "title": "PHC Medicine Rebalancing",
+    "description": "Flood readiness, shortage monitoring and governed medicine transfer approvals",
+    "applicationVersion": { "version": "1.0.0" },
+    "crossNavigation": {
+      "inbounds": {
+        "PHCRebalancing-display": {
+          "semanticObject": "PHCRebalancing",
+          "action": "display",
+          "title": "PHC Medicine Rebalancing",
+          "signature": { "parameters": {}, "additionalParameters": "allowed" }
+        }
+      }
+    }
+  },
+  "sap.cloud": { "service": "org.example.phc.rebalancing" },
+  "sap.ui": { "technology": "UI5", "deviceTypes": { "desktop": true, "tablet": true, "phone": true } },
+  "sap.ui5": {
+    "dependencies": { "minUI5Version": "1.120.0", "libs": { "sap.m": {}, "sap.ui.core": {} } },
+    "rootView": { "viewName": "phc.rebalancing.App", "type": "XML", "async": true, "id": "app" },
+    "contentDensities": { "compact": true, "cozy": true }
+  }
+}

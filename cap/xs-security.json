@@ -1,0 +1,16 @@
+{
+  "xsappname": "phc-preemptive-rebalancing",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    { "name": "$XSAPPNAME.PHC_MEDICAL_OFFICER", "description": "View PHC operations and propose medicine transfers" },
+    { "name": "$XSAPPNAME.CMO", "description": "View operations and decide controlled medicine transfers" }
+  ],
+  "role-templates": [
+    { "name": "PHC_MEDICAL_OFFICER", "description": "Primary Health Centre medical officer", "scope-references": ["$XSAPPNAME.PHC_MEDICAL_OFFICER"] },
+    { "name": "CMO", "description": "District Chief Medical Officer", "scope-references": ["$XSAPPNAME.CMO"] }
+  ],
+  "role-collections": [
+    { "name": "PHC Medical Officer", "description": "PHC operational role", "role-template-references": ["$XSAPPNAME.PHC_MEDICAL_OFFICER"] },
+    { "name": "District CMO", "description": "District approval role", "role-template-references": ["$XSAPPNAME.CMO"] }
+  ]
+}

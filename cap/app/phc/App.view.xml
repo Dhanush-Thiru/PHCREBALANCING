@@ -1,0 +1,31 @@
+<mvc:View controllerName="phc.rebalancing.AppController" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core">
+  <App id="phcApp"><Page id="mainPage" title="PHC Medicine Rebalancing" busy="{/busy}" busyIndicatorDelay="0">
+    <headerContent><ObjectStatus text="Kendrapara District · Simulation data" state="Information"/><Button text="Refresh" icon="sap-icon://refresh" press=".onRefresh"/></headerContent>
+    <content>
+      <MessageStrip text="Flood bulletin active — Rajnagar PHC road access may close in 58 hours. Review the deterministic stock assessment and transfer proposals." type="Warning" showIcon="true" visible="{/bulletin/active}" class="sapUiSmallMargin"/>
+      <HBox wrap="Wrap" class="sapUiSmallMargin">
+        <GenericTile header="PHCs monitored" subheader="Kendrapara pilot"><TileContent><NumericContent value="{/summary/facilityCount}" icon="sap-icon://building"/></TileContent></GenericTile>
+        <GenericTile header="Facilities at risk" subheader="Based on active bulletin"><TileContent><NumericContent value="{/summary/atRisk}" valueColor="Critical" icon="sap-icon://alert"/></TileContent></GenericTile>
+        <GenericTile header="Pending CMO approval" subheader="Controlled items"><TileContent><NumericContent value="{/summary/pending}" icon="sap-icon://pending"/></TileContent></GenericTile>
+        <GenericTile header="Auto-staged" subheader="Low-risk rule"><TileContent><NumericContent value="{/summary/staged}" icon="sap-icon://shipping-status"/></TileContent></GenericTile>
+      </HBox>
+      <Panel headerText="District response" class="sapUiSmallMargin">
+        <Toolbar><Title text="Flood bulletin and deterministic plan"/><ToolbarSpacer/><Button text="{= ${/bulletin/active} ? 'Clear flood bulletin' : 'Activate flood bulletin' }" type="Emphasized" press=".onToggleFlood"/><Button text="Generate transfer plan" icon="sap-icon://lightbulb" press=".onPropose"/></Toolbar>
+        <Text text="Stockout risk, route eligibility and quantities are calculated by CAP from HANA records. The LLM supplies explanation text only." class="sapUiSmallMargin" wrapping="true"/>
+      </Panel>
+      <Panel headerText="Primary health centres" class="sapUiSmallMargin"><Table items="{/facilities}" growing="true" growingThreshold="10">
+        <columns><Column><Text text="Facility"/></Column><Column><Text text="Area"/></Column><Column><Text text="Isolation window"/></Column><Column><Text text="Stock lines"/></Column><Column><Text text="Status"/></Column></columns>
+        <items><ColumnListItem><cells><ObjectIdentifier title="{name}" text="{ID}"/><Text text="{area}"/><Text text="{= ${vulnerable} ? ${isolationHours} + ' hours' : '—' }"/><Text text="{= ${$root>/bulletin/active} &amp;&amp; ${vulnerable} ? 'Shortage review required' : 'Stock monitored' }"/><ObjectStatus text="{= ${$root>/bulletin/active} &amp;&amp; ${vulnerable} ? 'AT RISK' : ${vulnerable} ? 'WATCH' : 'CONNECTED' }" state="{= ${$root>/bulletin/active} &amp;&amp; ${vulnerable} ? 'Error' : ${vulnerable} ? 'Warning' : 'Success' }"/></cells></ColumnListItem></items>
+      </Table></Panel>
+      <Panel headerText="Transfer proposals and approvals" class="sapUiSmallMargin"><Table items="{/transfers}" growing="true" growingThreshold="20">
+        <columns><Column><Text text="Medicine"/></Column><Column><Text text="Target / donor"/></Column><Column><Text text="Quantity"/></Column><Column><Text text="Explanation"/></Column><Column><Text text="Status"/></Column><Column><Text text="CMO action"/></Column></columns>
+        <items><ColumnListItem><cells><ObjectIdentifier title="{medicine_ID}" text="{= ${controlled} ? 'Controlled · CMO sign-off' : 'Low-risk rule' }"/><Text text="{target_ID} ← {donor_ID}"/><ObjectNumber number="{quantity}" unit="{unit}"/><Text text="{explanation}" maxLines="2"/><ObjectStatus text="{status}" state="{= ${status}==='PENDING_CMO' ? 'Warning' : ${status}==='NO_DONOR_ESCALATE' || ${status}==='REJECTED' ? 'Error' : 'Success' }"/><HBox><Button text="Approve" type="Accept" press=".onApprove" visible="{= ${status}==='PENDING_CMO' }"/><Button text="Reject" type="Reject" press=".onReject" visible="{= ${status}==='PENDING_CMO' }"/></HBox></cells></ColumnListItem></items>
+      </Table></Panel>
+      <Panel headerText="Tamper-evident audit history" class="sapUiSmallMargin"><Toolbar><ToolbarSpacer/><Button text="Verify hash chain" icon="sap-icon://shield" press=".onVerify"/></Toolbar><Table items="{/audit}" growing="true" growingThreshold="20">
+        <columns><Column><Text text="#"/></Column><Column><Text text="Event"/></Column><Column><Text text="Transfer"/></Column><Column><Text text="Actor"/></Column><Column><Text text="SHA-256 hash"/></Column></columns>
+        <items><ColumnListItem><cells><Text text="{sequence}"/><Text text="{action}"/><Text text="{transferId}"/><Text text="{actor}"/><Text text="{hash}" maxLines="1"/></cells></ColumnListItem></items>
+      </Table></Panel>
+    </content>
+    <footer><Toolbar><Text text="SAP CAP · HANA Cloud · Generative AI Hub · Work Zone"/><ToolbarSpacer/><Text text="Pilot demo · seeded simulated data"/></Toolbar></footer>
+  </Page></App>
+</mvc:View>

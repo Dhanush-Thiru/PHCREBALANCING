@@ -1,0 +1,6 @@
+node_modules/
+gen/
+mta_archives/
+.env
+.cdsrc-private.json
+default-env.json
